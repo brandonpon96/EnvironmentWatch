@@ -1,8 +1,8 @@
 package com.example.environmentwatch;
 
-import android.os.Bundle;
+
 import android.app.Activity;
-import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -13,7 +13,7 @@ public class Camera extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_camera);
 		
-		Intent intent = getIntent();
+		
 	}
 
 	@Override
@@ -31,5 +31,5 @@ public class Camera extends Activity {
     	}
     	
     }
-
+	
 }

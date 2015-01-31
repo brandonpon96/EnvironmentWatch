@@ -464,22 +464,24 @@ containing a value of this type.
         public static final int powered_by_google_light=0x7f020021;
     }
     public static final class id {
-        public static final int action_settings=0x7f0b0019;
-        public static final int activity_camera=0x7f0b001a;
+        public static final int action_settings=0x7f0b001c;
+        public static final int activity_camera=0x7f0b001d;
         public static final int adjust_height=0x7f0b0000;
         public static final int adjust_width=0x7f0b0001;
         public static final int book_now=0x7f0b0010;
         public static final int buyButton=0x7f0b000c;
         public static final int buy_now=0x7f0b0011;
         public static final int buy_with_google=0x7f0b0012;
+        public static final int camera_fragment=0x7f0b0017;
+        public static final int camera_preview=0x7f0b0019;
         public static final int classic=0x7f0b0014;
         public static final int donate_with_google=0x7f0b0013;
         public static final int grayscale=0x7f0b0015;
         public static final int holo_dark=0x7f0b0007;
         public static final int holo_light=0x7f0b0008;
         public static final int hybrid=0x7f0b0003;
-        public static final int imageView1=0x7f0b0018;
-        public static final int map=0x7f0b0017;
+        public static final int imageView1=0x7f0b001b;
+        public static final int map=0x7f0b0018;
         public static final int match_parent=0x7f0b000e;
         public static final int monochrome=0x7f0b0016;
         public static final int none=0x7f0b0002;
@@ -489,6 +491,7 @@ containing a value of this type.
         public static final int satellite=0x7f0b0005;
         public static final int selectionDetails=0x7f0b000d;
         public static final int strict_sandbox=0x7f0b000b;
+        public static final int take_photo_button=0x7f0b001a;
         public static final int terrain=0x7f0b0006;
         public static final int wrap_content=0x7f0b000f;
     }
@@ -498,7 +501,8 @@ containing a value of this type.
     public static final class layout {
         public static final int activity_camera=0x7f030000;
         public static final int activity_main=0x7f030001;
-        public static final int info_window=0x7f030002;
+        public static final int fragment_camera=0x7f030002;
+        public static final int info_window=0x7f030003;
     }
     public static final class menu {
         public static final int camera=0x7f0a0000;
@@ -617,6 +621,7 @@ containing a value of this type.
         public static final int hello_world=0x7f060025;
         public static final int store_picture_message=0x7f060001;
         public static final int store_picture_title=0x7f060000;
+        public static final int take_photo=0x7f060028;
         public static final int title_activity_camera=0x7f060026;
         /**  Text on a placeholder buy button when Google Play services is not
          available or up-to-date 
