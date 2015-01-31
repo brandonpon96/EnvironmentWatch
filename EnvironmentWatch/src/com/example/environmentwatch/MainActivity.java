@@ -7,9 +7,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class MainActivity extends Activity {
 
@@ -28,6 +32,37 @@ public class MainActivity extends Activity {
     public void createMap() {
     	map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
         map.setMyLocationEnabled(true);
+        
+        map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+
+            // Use default InfoWindow frame
+            @Override
+            public View getInfoWindow(Marker arg0) {
+                return null;
+            }
+
+            // Defines the contents of the InfoWindow
+            @Override
+            public View getInfoContents(Marker arg0) {
+
+                // Getting view from the layout file info_window_layout
+                View v = getLayoutInflater().inflate(R.layout.info_window, null);
+
+                // Getting the position from the marker
+                LatLng latLng = arg0.getPosition();
+
+
+                // Returning the view containing InfoWindow contents
+                return v;
+
+            }
+        });
+        
+        Marker marker = map.addMarker(new MarkerOptions()
+        .position(new LatLng(34.413963, -119.848947))
+        .title("Melbourne"));
+        
+        marker.showInfoWindow();
     }
 
 
