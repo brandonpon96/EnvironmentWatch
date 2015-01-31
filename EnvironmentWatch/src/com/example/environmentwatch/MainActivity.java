@@ -124,8 +124,8 @@ public class MainActivity extends Activity {
     }
     
     //TODO: get location, comments, image from interwebs to make markerdata object and save in 'points' array
-    public MarkerData[] getPoints() {
-    	return null;
+    public void setPoints() {
+
     }
     
     public Bitmap getBitmapFromMarker(Marker m) {
