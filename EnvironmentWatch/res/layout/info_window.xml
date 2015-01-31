@@ -8,6 +8,6 @@
         android:id="@+id/imageView1"
         android:layout_width="260dp"
         android:layout_height="376dp"
-        android:src="@drawable/common_signin_btn_icon_light" />
+        android:src="@drawable/ic_action_accept" />
 
 </LinearLayout>
