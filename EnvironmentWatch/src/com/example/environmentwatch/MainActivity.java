@@ -1,16 +1,20 @@
 package com.example.environmentwatch;
 
 
-import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.ActionBar.Tab;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+
 public class MainActivity extends Activity {
 
+	private GoogleMap map;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,7 +22,12 @@ public class MainActivity extends Activity {
         ActionBar actionBar = getActionBar();
         actionBar.show();
         
-        
+        createMap();
+    }
+    
+    public void createMap() {
+    	map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+        map.setMyLocationEnabled(true);
     }
 
 
