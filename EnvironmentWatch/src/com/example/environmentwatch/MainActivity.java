@@ -5,12 +5,19 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.MapFragment;
@@ -18,12 +25,19 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements
+ConnectionCallbacks, OnConnectionFailedListener{
 
 	private GoogleMap map;
 	private MarkerData[] points = {new MarkerData(new LatLng(34.413963, -119.848947)),
 			new MarkerData(new LatLng(34.413329, -119.860972)),
 			new MarkerData(new LatLng(34.411516, -119.844768))};
+	
+	private GoogleApiClient mGoogleApiClient;
+	private Location mLastLocation;
+	TextView mLatitudeText,mLongitudeText;
+
+	
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +50,16 @@ public class MainActivity extends Activity {
         createMap();
         plotPoints();
     }
-    
+    protected synchronized void buildGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+            .addConnectionCallbacks(this)
+            .addOnConnectionFailedListener(this)
+            .addApi(LocationServices.API)
+            .build();
+
+        plotPoints();
+    }
+
     public void createMap() {
     	map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
         map.setMyLocationEnabled(true);
@@ -133,5 +156,23 @@ public class MainActivity extends Activity {
     	}
     	return null;
     }
+	public void onConnectionFailed(ConnectionResult result) {
+		// TODO Auto-generated method stub
+		
+	}
+	public void onConnected(Bundle connectionHint) {
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
+                mGoogleApiClient);
+        mLatitudeText.setText("change");
+        mLongitudeText.setText("change");
+        if (mLastLocation != null) {
+            mLatitudeText.setText(String.valueOf(mLastLocation.getLatitude()));
+            mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
+        }
+    }
+	public void onConnectionSuspended(int cause) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
