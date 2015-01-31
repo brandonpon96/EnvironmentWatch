@@ -6,5 +6,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_camera">Camera</string>
     <string name="camera_view">camera</string>
+    <string name="take_photo">send</string>
 
 </resources>
