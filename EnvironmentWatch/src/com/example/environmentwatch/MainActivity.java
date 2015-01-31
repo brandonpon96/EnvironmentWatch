@@ -50,19 +50,16 @@ public class MainActivity extends Activity {
         	
         	private boolean show = true;
         	
-        	@Override
         	public void onInfoWindowClick(Marker marker) {
         		if (show){
         			map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
 
                         // Use default InfoWindow frame
-                        @Override
                         public View getInfoWindow(Marker arg0) {
                             return null;
                         }
 
                         // Defines the contents of the InfoWindow
-                        @Override
                         public View getInfoContents(Marker arg0) {
 
                             // Getting view from the layout file info_window_layout
