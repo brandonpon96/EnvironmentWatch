@@ -8,6 +8,8 @@ import android.view.MenuItem;
 
 public class Camera extends Activity {
 
+	float lat, lon;
+	String slatitude,slongitude;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

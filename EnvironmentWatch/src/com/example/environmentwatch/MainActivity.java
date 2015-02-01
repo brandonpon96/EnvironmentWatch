@@ -35,7 +35,8 @@ ConnectionCallbacks, OnConnectionFailedListener{
 	
 	private GoogleApiClient mGoogleApiClient;
 	private Location mLastLocation;
-	TextView mLatitudeText,mLongitudeText;
+	public static TextView mLatitudeText;
+	public static TextView mLongitudeText;
 
 	
 	
@@ -63,7 +64,6 @@ ConnectionCallbacks, OnConnectionFailedListener{
             .build();
         mGoogleApiClient.connect();
     }
-
     public void createMap() {
     	map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
         map.setMyLocationEnabled(true);
@@ -129,6 +129,8 @@ ConnectionCallbacks, OnConnectionFailedListener{
     	{
     		case R.id.activity_camera:
     			Intent intent1 = new Intent(this,Camera.class);
+    			intent1.putExtra("latitude",mLatitudeText.getText().toString());
+    			intent1.putExtra("longitude",mLongitudeText.getText().toString());
     			startActivity(intent1);
     			return true;
     		default:

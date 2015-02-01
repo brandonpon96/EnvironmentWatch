@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class CameraFragment extends Fragment {
@@ -32,6 +33,8 @@ public class CameraFragment extends Fragment {
 	Camera mCamera;
 	CameraPreview mCameraPreview;
 	ImageView cameraView;
+	Float lat, lon;
+	String slatitude,slongitude;
 	
 	ShutterCallback mShutterCallback = new ShutterCallback() {
 		public void onShutter() {
@@ -56,9 +59,13 @@ public class CameraFragment extends Fragment {
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+
         View v = inflater.inflate(R.layout.fragment_camera, container, false);
-        
-     
+        Bundle b = getActivity().getIntent().getExtras();
+        slatitude = b.getString("latitude");
+        slongitude = b.getString("longitude");
+        lat = Float.parseFloat(slatitude);
+		lon = Float.parseFloat(slongitude);
         // Check if camera is available.
         if (checkForCameraHardware(getActivity())) {
         	Log.d("CameraFragment", "Camera hardware is available! :)");
@@ -155,10 +162,12 @@ public class CameraFragment extends Fragment {
 		rotatedScaledSnapImageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 		byte[] rawScaledImage = stream.toByteArray();
 		
+		
 		ParseObject snap = new ParseObject("Snap");
 		ParseFile imageFile = new ParseFile("image.jpg", rawScaledImage);
 		snap.put("imageFile", imageFile);
-		snap.put("hasBeenViewed", Boolean.FALSE);
+		snap.put("latitude", lat);
+		snap.put("longitude", lon);
 		snap.put("deviceId", ParseInstallation.getCurrentInstallation().getObjectId());
 		snap.saveInBackground();
 		
