@@ -18,7 +18,11 @@ public class MarkerData {
 	}
 	
 	public MarkerData(LatLng coord) {
-		this(coord, "lols", null);
+		this(coord, coord.toString(), null);
+	}
+	
+	public MarkerData(LatLng coord, Bitmap image) {
+		this(coord, coord.toString(), image);
 	}
 	
 	public LatLng getLatLng() {
