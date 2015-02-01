@@ -45,10 +45,15 @@ ConnectionCallbacks, OnConnectionFailedListener{
         setContentView(R.layout.activity_main);
         ActionBar actionBar = getActionBar();
         actionBar.show();
-        System.out.println("begin");
+        
+        mLatitudeText = (TextView)findViewById(R.id.textView1);
+        mLongitudeText = (TextView)findViewById(R.id.textView2);
+
+        
         
         createMap();
         plotPoints();
+        buildGoogleApiClient();
     }
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -56,8 +61,7 @@ ConnectionCallbacks, OnConnectionFailedListener{
             .addOnConnectionFailedListener(this)
             .addApi(LocationServices.API)
             .build();
-
-        plotPoints();
+        mGoogleApiClient.connect();
     }
 
     public void createMap() {
@@ -163,8 +167,6 @@ ConnectionCallbacks, OnConnectionFailedListener{
 	public void onConnected(Bundle connectionHint) {
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
-        mLatitudeText.setText("change");
-        mLongitudeText.setText("change");
         if (mLastLocation != null) {
             mLatitudeText.setText(String.valueOf(mLastLocation.getLatitude()));
             mLongitudeText.setText(String.valueOf(mLastLocation.getLongitude()));
