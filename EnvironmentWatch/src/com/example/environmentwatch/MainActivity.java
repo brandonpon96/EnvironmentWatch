@@ -1,10 +1,17 @@
 package com.example.environmentwatch;
 
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -24,6 +32,12 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 public class MainActivity extends Activity implements
 ConnectionCallbacks, OnConnectionFailedListener{
@@ -37,7 +51,7 @@ ConnectionCallbacks, OnConnectionFailedListener{
 	private Location mLastLocation;
 	public static TextView mLatitudeText;
 	public static TextView mLongitudeText;
-
+	ArrayList<Float> latitudeList,longitudeList;
 	
 	
     @Override
@@ -50,7 +64,8 @@ ConnectionCallbacks, OnConnectionFailedListener{
         mLatitudeText = (TextView)findViewById(R.id.textView1);
         mLongitudeText = (TextView)findViewById(R.id.textView2);
 
-        
+        latitudeList = new ArrayList<Float>();
+        longitudeList = new ArrayList<Float>();
         
         createMap();
         plotPoints();
@@ -176,6 +191,52 @@ ConnectionCallbacks, OnConnectionFailedListener{
     }
 	public void onConnectionSuspended(int cause) {
 		// TODO Auto-generated method stub
+		
+	}
+	
+public void getPictures() {
+		
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("Snap");
+		query.orderByAscending("createdAt");
+
+		query.findInBackground(new FindCallback<ParseObject>() {
+			public void done(List<ParseObject> objects, ParseException e) {
+				if (objects != null && e == null) {				
+					//files = objects.getParseFile("imageFile");
+					
+					
+					
+					try {
+						byte [] bytesarray;
+						for(int i = 0;i<objects.size();i++)
+						{
+							bytesarray = objects.get(i).getParseFile("latitude").getData();
+							latitudeList.add(ByteBuffer.wrap(bytesarray).order(ByteOrder.LITTLE_ENDIAN).getFloat());
+							bytesarray = objects.get(i).getParseFile("longitude").getData();
+							longitudeList.add(ByteBuffer.wrap(bytesarray).order(ByteOrder.LITTLE_ENDIAN).getFloat());
+						}
+						/*
+						byte[] bytes = file.getData();
+						Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+						Matrix rotationMatrix = new Matrix();
+						rotationMatrix.postRotate(0);
+						Bitmap rotatedScaledSnapImageBitmap = Bitmap.createBitmap(bmp, 0, 0, 
+								bmp.getWidth(), bmp.getHeight(), rotationMatrix, true);
+						object.saveInBackground();*/
+
+					} catch (ParseException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				} else {
+					// alert the user that there are no more images to read!
+
+					return;
+					// something went wrong
+				}
+			}
+		});
+		
 		
 	}
 
