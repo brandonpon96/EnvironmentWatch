@@ -44,4 +44,17 @@ public class MarkerData {
 	public Marker getMarker() {
 		return marker;
 	}
+	
+	public String toString() {
+		String s = "";
+		s += "LatLng: " + getLatLng() + "\n";
+		s += "Comment: " + getComments() + "\n";
+		if(getImage() != null){
+			s += "Image: " + getImage() + "\n";
+		}
+		if(getMarker() != null){
+			s += "Marker: " + getMarker() + "\n";
+		}
+		return s;
+	}
 }

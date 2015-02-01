@@ -101,8 +101,20 @@ ConnectionCallbacks, OnConnectionFailedListener{
         	
         	public void onInfoWindowClick(Marker marker) {
         		if (show){
+//                    ImageView mImg = (ImageView) findViewById(R.id.imageView1);
+//                    Bitmap b = getBitmapFromMarker(marker);
+//                    if(b != null){
+//                    	if(mImg == null){
+//                    		System.out.println("fkin");
+//                    	}
+//                    	else {
+//                    		mImg.setImageBitmap(b);
+//                    		//mImg.setImageResource(R.drawable.ic_launcher);
+//                    	}
+//                    }
+        			
         			map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
-
+                        
                         // Use default InfoWindow frame
                         public View getInfoWindow(Marker arg0) {
                             return null;
@@ -111,18 +123,20 @@ ConnectionCallbacks, OnConnectionFailedListener{
                         // Defines the contents of the InfoWindow
                         public View getInfoContents(Marker arg0) {
 
-                            // Getting view from the layout file info_window_layout
-                            View v = getLayoutInflater().inflate(R.layout.info_window, null);
-                            
-                            ImageView mImg = (ImageView) findViewById(R.id.imageView1);
-                            
+//                            // Getting view from the layout file info_window_layout
+//                            View v = getLayoutInflater().inflate(R.layout.info_window, null);
+//                            
+//                            
+//
+//                            // Returning the view containing InfoWindow contents
+//                            return v;
+                        	
+                        	View v = new ImageView(getBaseContext());
+                        	ImageView image = new ImageView(v.getContext());
+                        	image = new ImageView(v.getContext());
                             Bitmap b = getBitmapFromMarker(arg0);
-                            if(b != null){
-                            	mImg.setImageBitmap(getBitmapFromMarker(arg0));
-                            }
-
-                            // Returning the view containing InfoWindow contents
-                            return v;
+                        	image.setImageBitmap(b);
+                        	return image;
 
                         }
                     });
@@ -169,6 +183,7 @@ ConnectionCallbacks, OnConnectionFailedListener{
                 .title(p.getComments()));
         		
         		p.setMarker(mark);
+        		System.out.println("rihihihihi " + p);
     		}
     	}
     }
@@ -177,14 +192,13 @@ ConnectionCallbacks, OnConnectionFailedListener{
     public void setPoints() {
     	for(int i=0;i<latitudeList.size();i++) {
     		points.add(new MarkerData(new LatLng(latitudeList.get(i), longitudeList.get(i)), bitmapList.get(i)));
-    		System.out.println("ehihihi " + points.get(i).getLatLng());
-    		System.out.println("ehihihi " + points.get(i).getImage());
+    		System.out.println("oihihihihi " + points.get(i));
     	}
     }
     
     public Bitmap getBitmapFromMarker(Marker m) {
     	for (MarkerData p : points){
-    		if(m == p.getMarker()){
+    		if(m.equals(p.getMarker())){
     			return p.getImage();
     		}
     	}
